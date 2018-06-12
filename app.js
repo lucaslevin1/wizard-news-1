@@ -18,16 +18,54 @@ app.get('/', (req, res) => {
   <html>
   <head>
     <title>Wizard News</title>
+    <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    <ul>
-    ${posts.map(post => `<li><strong>${post.title}</strong> written by ${post.name}</li>`)}
-    </ul>
+    <div class="news-list">
+      <header><img src="/logo.png"/><a href='/' style='color: white'>Wizard News</a></header>
+      ${posts.map(post => `
+        <div class='news-item'>
+          <p>
+            <span class="news-position">${post.id}. ▲</span><a href="/posts/${post.id}">${post.title}</a>
+            <small>(by ${post.name})</small>
+          </p>
+          <small class="news-info">
+            ${post.upvotes} upvotes | ${post.date}
+          </small>
+        </div>`
+      ).join("")}
+    </div>
   </body>
-  </html>`;
+</html>`;
 
   //finally send a response
   res.send(html);
+});
+
+app.get('/posts/:id', (req, res) => {
+  const id = req.params.id;
+  const post = postBank.find(id);
+  res.send(`<!DOCTYPE html>
+  <html>
+  <head>
+    <title>Wizard News</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="news-list">
+      <header><img src="/logo.png"/><a href='/' style='color: white'>Wizard News</a></header>
+        <div class='news-item'>
+          <p>
+            ${post.title}
+            <small>(by ${post.name})</small>
+          </p>
+          <p class="news">
+            ${post.content}
+          </p>
+        </div>
+    </div>
+  </body>
+</html>`);
 });
 
 
