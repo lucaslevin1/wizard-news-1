@@ -5,7 +5,9 @@ const postBank = require('./postBank');
 const app = express();
 app.use(morgan('dev'));
 
-app.get("/", (req, res) => res.send("Hello World!"));
+//making it so everyfile loaded in public is accessible
+app.use(express.static('public'))
+
 
 app.get('/', (req, res) => {
   //first get the list of posts
@@ -19,7 +21,7 @@ app.get('/', (req, res) => {
   </head>
   <body>
     <ul>
-    ${posts.map(post => '<li>${}</li>')}
+    ${posts.map(post => `<li><strong>${post.title}</strong> written by ${post.name}</li>`)}
     </ul>
   </body>
   </html>`;
@@ -27,7 +29,6 @@ app.get('/', (req, res) => {
   //finally send a response
   res.send(html);
 });
-
 
 
 const PORT = 1337;
