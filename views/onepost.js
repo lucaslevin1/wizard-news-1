@@ -1,4 +1,6 @@
-module.exports = (post) => {return `<!DOCTYPE html>
+const html = require('html-template-tag')
+
+module.exports = (post) => html`<!DOCTYPE html>
 <html>
 <head>
   <title>Wizard News</title>
@@ -18,4 +20,4 @@ module.exports = (post) => {return `<!DOCTYPE html>
       </div>
   </div>
 </body>
-</html>`};
+</html>`;

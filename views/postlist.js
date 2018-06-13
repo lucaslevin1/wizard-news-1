@@ -1,23 +1,7 @@
-module.exports = (posts) => {
-  const getTimeForPost = (time) => {
-    let now = new Date().getTime();
+const html = require('html-template-tag');
+const postBank = require('../postBank');
 
-    if (now - time < 60000){
-      return 'Just now';
-    } else if (now - time < 3600000){
-      return 'Between a minutes and an hour ago';
-    } else if (now - time < 7200000) {
-      return 'Between one and two hours ago';
-    } else if (now - time < 10800000){
-      return 'Between two and three hours ago';
-    } else if (now - time < 86400000) {
-      return 'Between three hours ago and yesterday';
-    } else {
-      return 'Over a day ago';
-    }
-  }
-
-  return `<!DOCTYPE html>
+module.exports = (posts) => html`<!DOCTYPE html>
   <html>
   <head>
     <title>Wizard News</title>
@@ -33,12 +17,10 @@ module.exports = (posts) => {
             <small>(by ${post.name})</small>
           </p>
           <small class="news-info">
-            ${post.upvotes} upvotes | ${getTimeForPost(post.date)}
+            ${post.upvotes} upvotes | ${postBank.getTimeForPost(post.date)}
           </small>
         </div>`
       ).join("")}
     </div>
   </body>
-</html>`
-
-};
+</html>`;

@@ -18,11 +18,29 @@ const data = [
 
 const list = () => {
   return [...data] // Notice that we're returning a copy of the array, so the original data is safe. This is called 'immutability'.
-}; 
+};
 
 const find = (id) => {
   const post = data.find(post => post.id === +id);
   return {...post}; // Again, we copy the post data before returning so the original information is safe.
 }
 
-module.exports = { list: list, find: find };
+const getTimeForPost = (time) => {
+  let now = new Date().getTime();
+
+  if (now - time < 60000){
+    return 'Just now';
+  } else if (now - time < 3600000){
+    return 'Between a minutes and an hour ago';
+  } else if (now - time < 7200000) {
+    return 'Between one and two hours ago';
+  } else if (now - time < 10800000){
+    return 'Between two and three hours ago';
+  } else if (now - time < 86400000) {
+    return 'Between three hours ago and yesterday';
+  } else {
+    return 'Over a day ago';
+  }
+}
+
+module.exports = { list: list, find: find, getTimeForPost: getTimeForPost };
