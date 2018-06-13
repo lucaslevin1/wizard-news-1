@@ -20,7 +20,7 @@ module.exports = (posts) => html`<!DOCTYPE html>
             ${post.upvotes} upvotes | ${postBank.getTimeForPost(post.date)}
           </small>
         </div>`
-      ).join("")}
+      )}
     </div>
   </body>
 </html>`;
